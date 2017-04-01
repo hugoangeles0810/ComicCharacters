@@ -1,7 +1,7 @@
 # MarvelCharacters
 App para obtener información de los personajes del Mundo Marvel
 
-[![Build Status](https://travis-ci.org/hugoangeles0810/MarvelCharacters.svg?branch=master)](https://travis-ci.org/rails/rails)
+[![Build Status](https://travis-ci.org/hugoangeles0810/MarvelCharacters.svg?branch=master)](https://travis-ci.org/hugoangeles0810/MarvelCharacters)
 
 Desarrollado Por
 ------------
