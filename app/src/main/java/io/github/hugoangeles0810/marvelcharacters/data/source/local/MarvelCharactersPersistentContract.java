@@ -25,7 +25,7 @@ public final class MarvelCharactersPersistentContract {
 
     // To prevent someone from accidentally instantiating the contract class,
     // give it an empty constructor.
-    private MarvelCharactersPersistentContract() {}
+    private MarvelCharactersPersistentContract() { }
 
     /* Inner class that defines the table contents */
     public static abstract class CharacterEntry implements BaseColumns {

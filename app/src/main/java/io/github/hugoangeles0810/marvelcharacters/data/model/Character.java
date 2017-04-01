@@ -84,4 +84,8 @@ public class Character {
 
         return super.equals(obj);
     }
+
+    @Override public int hashCode() {
+        return super.hashCode();
+    }
 }

@@ -39,12 +39,12 @@ public class MarvelCharactersDbHelper extends SQLiteOpenHelper {
     private static final String COMMA_SEP = ",";
 
     private static final String SQL_CREATE_ENTRIES =
-            "CREATE TABLE " + CharacterEntry.TABLE_NAME + " (" +
-                    CharacterEntry._ID + INT_TYPE + " PRIMARY KEY," +
-                    CharacterEntry.COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP +
-                    CharacterEntry.COLUMN_NAME_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
-                    CharacterEntry.COLUMN_NAME_IMAGE_URL + TEXT_TYPE  +
-                    " )";
+            "CREATE TABLE " + CharacterEntry.TABLE_NAME + " ("
+                    + CharacterEntry._ID + INT_TYPE + " PRIMARY KEY,"
+                    + CharacterEntry.COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP
+                    + CharacterEntry.COLUMN_NAME_DESCRIPTION + TEXT_TYPE + COMMA_SEP
+                    + CharacterEntry.COLUMN_NAME_IMAGE_URL + TEXT_TYPE
+                    + " )";
 
     public MarvelCharactersDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

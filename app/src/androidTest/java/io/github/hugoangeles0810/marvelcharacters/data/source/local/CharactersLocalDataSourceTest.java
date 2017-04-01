@@ -64,7 +64,7 @@ public class CharactersLocalDataSourceTest {
     }
 
     @Test
-    public void saveCharacter_retrievesCharacter() {
+    public void shouldRetrieveCharacterWhenSaveCharacter() {
         // Given a new character
         final Character character = new Character(NAME);
 

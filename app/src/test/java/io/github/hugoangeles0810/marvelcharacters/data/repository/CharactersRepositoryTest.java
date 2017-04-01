@@ -69,7 +69,7 @@ public class CharactersRepositoryTest {
     }
 
     @Test
-    public void getCharacters_requestsAllTasksFromLocalDataSource() {
+    public void shouldRequestsAllTasksFromLocalDataSourceWhenCallGetCharacters() {
         // When tasks are requested from the tasks repository
         mCharactersRepository.getCharacters(mLoadCharactersCallback);
 
@@ -78,7 +78,7 @@ public class CharactersRepositoryTest {
     }
 
     @Test
-    public void getCharacters_repositorySavesAfterFirstApiCall() {
+    public void shouldRepositorySavesAfterFirstRemoteCall() {
         // When two calls are issued to the characters repository
         twoCharactersLoadCallsToRepository(mLoadCharactersCallback);
 
@@ -86,7 +86,8 @@ public class CharactersRepositoryTest {
         verify(mCharsRemoteDataSource).getCharacters(any(CharactersDataSource.LoadCharactersCallback.class));
     }
 
-    private void twoCharactersLoadCallsToRepository(CharactersRepository.LoadCharactersCallback mLoadCharactersCallback) {
+    private void twoCharactersLoadCallsToRepository(
+        CharactersRepository.LoadCharactersCallback mLoadCharactersCallback) {
         // When characters are requested from repository
         mCharactersRepository.getCharacters(mLoadCharactersCallback); // First call to API
 
