@@ -16,6 +16,10 @@
 
 package io.github.hugoangeles0810.marvelcharacters.data.repository;
 
+import io.github.hugoangeles0810.marvelcharacters.data.source.CharactersLocalDataSource;
+import io.github.hugoangeles0810.marvelcharacters.data.source.CharactersRemoteDataSource;
+import java.util.Arrays;
+import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,12 +28,7 @@ import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.Arrays;
-import java.util.List;
-
-import io.github.hugoangeles0810.marvelcharacters.data.source.CharactersDataSource;
-
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 
 /**
@@ -41,16 +40,19 @@ public class CharactersRepositoryTest {
     private static List CHARACTERS = Arrays.asList();
 
     @Mock
-    private CharactersDataSource mCharsRemoteDataSource;
+    private CharactersRemoteDataSource mCharsRemoteDataSource;
 
     @Mock
-    private CharactersDataSource mCharsLocalDataSource;
+    private CharactersLocalDataSource mCharsLocalDataSource;
 
     @Mock
     private CharactersRepository.LoadCharactersCallback mLoadCharactersCallback;
 
     @Captor
-    private ArgumentCaptor<CharactersDataSource.LoadCharactersCallback> mLoadCharsCallbackCaptor;
+    private ArgumentCaptor<CharactersLocalDataSource.LoadCharactersCallback> mLoadCharsLocalCallbackCaptor;
+
+    @Captor
+    private ArgumentCaptor<CharactersRemoteDataSource.LoadCharactersCallback> mLoadCharsRemoteCallbackCaptor;
 
     private CharactersRepository mCharactersRepository;
 
@@ -74,7 +76,7 @@ public class CharactersRepositoryTest {
         mCharactersRepository.getCharacters(mLoadCharactersCallback);
 
         // Then tasks are loaded from the local data source
-        verify(mCharsLocalDataSource).getCharacters(any(CharactersDataSource.LoadCharactersCallback.class));
+        verify(mCharsLocalDataSource).getCharacters(any(CharactersLocalDataSource.LoadCharactersCallback.class));
     }
 
     @Test
@@ -83,7 +85,7 @@ public class CharactersRepositoryTest {
         twoCharactersLoadCallsToRepository(mLoadCharactersCallback);
 
         // Then characters were only requested once from remote data source
-        verify(mCharsRemoteDataSource).getCharacters(any(CharactersDataSource.LoadCharactersCallback.class));
+        verify(mCharsRemoteDataSource).getCharacters(any(CharactersRemoteDataSource.LoadCharactersCallback.class));
     }
 
     private void twoCharactersLoadCallsToRepository(
@@ -92,16 +94,16 @@ public class CharactersRepositoryTest {
         mCharactersRepository.getCharacters(mLoadCharactersCallback); // First call to API
 
         // Capture the callback
-        verify(mCharsLocalDataSource).getCharacters(mLoadCharsCallbackCaptor.capture());
+        verify(mCharsLocalDataSource).getCharacters(mLoadCharsLocalCallbackCaptor.capture());
 
         // Local data source doesn't have data yet
-        mLoadCharsCallbackCaptor.getValue().onDataNotAvailable();
+        mLoadCharsLocalCallbackCaptor.getValue().onDataNotAvailable();
 
         // Verify the remote data source is queried
-        verify(mCharsRemoteDataSource).getCharacters(mLoadCharsCallbackCaptor.capture());
+        verify(mCharsRemoteDataSource).getCharacters(mLoadCharsRemoteCallbackCaptor.capture());
 
         // Trigger callback so characters are cached
-        mLoadCharsCallbackCaptor.getValue().onCharactersLoaded(CHARACTERS);
+        mLoadCharsRemoteCallbackCaptor.getValue().onCharactersLoaded(CHARACTERS);
 
         mCharactersRepository.getCharacters(mLoadCharactersCallback); // Second call to API
     }

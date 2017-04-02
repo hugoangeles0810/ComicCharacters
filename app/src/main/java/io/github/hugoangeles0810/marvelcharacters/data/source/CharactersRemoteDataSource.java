@@ -17,27 +17,21 @@
 package io.github.hugoangeles0810.marvelcharacters.data.source;
 
 import android.support.annotation.NonNull;
-
+import io.github.hugoangeles0810.marvelcharacters.data.model.Character;
 import java.util.List;
 
-import io.github.hugoangeles0810.marvelcharacters.data.model.Character;
-
 /**
- * Main entry point for accesing characters data
+ * Main entry point for accesing remote characters data
  */
-public interface CharactersDataSource {
+public interface CharactersRemoteDataSource {
 
-    interface LoadCharactersCallback {
+  interface LoadCharactersCallback {
 
-        void onCharactersLoaded(List<Character> characters);
+    void onCharactersLoaded(List<Character> characters);
 
-        void onDataNotAvailable();
-    }
+    void onDataNotAvailable();
+  }
 
-    void getCharacters(@NonNull LoadCharactersCallback callback);
-
-    void saveCharacter(@NonNull Character character);
-
-    void deleteAllCharacters();
+  void getCharacters(@NonNull LoadCharactersCallback callback);
 
 }

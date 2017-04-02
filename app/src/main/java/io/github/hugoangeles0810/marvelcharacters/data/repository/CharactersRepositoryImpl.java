@@ -17,11 +17,10 @@
 package io.github.hugoangeles0810.marvelcharacters.data.repository;
 
 import android.support.annotation.NonNull;
-
-import java.util.List;
-
 import io.github.hugoangeles0810.marvelcharacters.data.model.Character;
-import io.github.hugoangeles0810.marvelcharacters.data.source.CharactersDataSource;
+import io.github.hugoangeles0810.marvelcharacters.data.source.CharactersLocalDataSource;
+import io.github.hugoangeles0810.marvelcharacters.data.source.CharactersRemoteDataSource;
+import java.util.List;
 
 /**
  * Created by hugo on 30/03/17.
@@ -31,18 +30,18 @@ public class CharactersRepositoryImpl implements CharactersRepository {
 
     private static  CharactersRepository INSTANCE = null;
 
-    private final CharactersDataSource mCharsRemoteDataSource;
+    private final CharactersRemoteDataSource mCharsRemoteDataSource;
 
-    private final CharactersDataSource mCharsLocalDataSource;
+    private final CharactersLocalDataSource mCharsLocalDataSource;
 
-    private CharactersRepositoryImpl(@NonNull CharactersDataSource charsRemoteDataSource,
-                                    @NonNull CharactersDataSource charsLocalDataSource) {
+    private CharactersRepositoryImpl(@NonNull CharactersRemoteDataSource charsRemoteDataSource,
+                                    @NonNull CharactersLocalDataSource charsLocalDataSource) {
         mCharsRemoteDataSource = charsRemoteDataSource;
         mCharsLocalDataSource = charsLocalDataSource;
     }
 
-    public static CharactersRepository getInstance(CharactersDataSource charsRemoteDataSource,
-                                                   CharactersDataSource charsLocalDataSource) {
+    public static CharactersRepository getInstance(CharactersRemoteDataSource charsRemoteDataSource,
+                                                   CharactersLocalDataSource charsLocalDataSource) {
         if (INSTANCE == null) {
             INSTANCE = new CharactersRepositoryImpl(charsRemoteDataSource, charsLocalDataSource);
         }
@@ -63,7 +62,7 @@ public class CharactersRepositoryImpl implements CharactersRepository {
      */
     @Override
     public void getCharacters(@NonNull final LoadCharactersCallback callback) {
-        mCharsLocalDataSource.getCharacters(new CharactersDataSource.LoadCharactersCallback() {
+        mCharsLocalDataSource.getCharacters(new CharactersLocalDataSource.LoadCharactersCallback() {
             @Override
             public void onCharactersLoaded(List<Character> characters) {
                 callback.onCharactersLoaded(characters);
@@ -77,7 +76,7 @@ public class CharactersRepositoryImpl implements CharactersRepository {
     }
 
     private void getCharactersFromRemoteDataSource(final LoadCharactersCallback callback) {
-        mCharsRemoteDataSource.getCharacters(new CharactersDataSource.LoadCharactersCallback() {
+        mCharsRemoteDataSource.getCharacters(new CharactersRemoteDataSource.LoadCharactersCallback() {
             @Override
             public void onCharactersLoaded(List<Character> characters) {
                 callback.onCharactersLoaded(characters);

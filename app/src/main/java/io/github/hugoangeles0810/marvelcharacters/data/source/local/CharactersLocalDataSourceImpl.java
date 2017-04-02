@@ -21,32 +21,30 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
-
+import io.github.hugoangeles0810.marvelcharacters.data.model.Character;
+import io.github.hugoangeles0810.marvelcharacters.data.source.local.MarvelCharactersPersistentContract.CharacterEntry;
 import java.util.ArrayList;
 import java.util.List;
-
-import io.github.hugoangeles0810.marvelcharacters.data.model.Character;
-import io.github.hugoangeles0810.marvelcharacters.data.source.CharactersDataSource;
-import io.github.hugoangeles0810.marvelcharacters.data.source.local.MarvelCharactersPersistentContract.CharacterEntry;
 
 /**
  * Created by hugo on 31/03/17.
  */
 
-public class CharactersLocalDataSource implements CharactersDataSource {
+public class CharactersLocalDataSourceImpl
+    implements io.github.hugoangeles0810.marvelcharacters.data.source.CharactersLocalDataSource {
 
-    private static CharactersLocalDataSource INSTANCE;
+    private static CharactersLocalDataSourceImpl INSTANCE;
 
     private MarvelCharactersDbHelper mDbHelper;
 
     // Prevent direct instantiation.
-    private CharactersLocalDataSource(@NonNull Context context) {
+    private CharactersLocalDataSourceImpl(@NonNull Context context) {
         mDbHelper = new MarvelCharactersDbHelper(context);
     }
 
-    public static CharactersLocalDataSource getInstance(Context context) {
+    public static CharactersLocalDataSourceImpl getInstance(Context context) {
         if (INSTANCE == null) {
-            INSTANCE = new CharactersLocalDataSource(context);
+            INSTANCE = new CharactersLocalDataSourceImpl(context);
         }
 
         return INSTANCE;

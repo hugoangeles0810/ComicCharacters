@@ -18,23 +18,20 @@ package io.github.hugoangeles0810.marvelcharacters.data.source.local;
 
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
-
+import io.github.hugoangeles0810.marvelcharacters.data.model.Character;
+import io.github.hugoangeles0810.marvelcharacters.data.source.CharactersLocalDataSource;
+import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import java.util.List;
-
-import io.github.hugoangeles0810.marvelcharacters.data.model.Character;
-import io.github.hugoangeles0810.marvelcharacters.data.source.CharactersDataSource;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 /**
- * Integration test for the {@link CharactersDataSource}, which uses the {@link MarvelCharactersDbHelper}.
+ * Integration test for the {@link CharactersLocalDataSource}, which uses the {@link MarvelCharactersDbHelper}.
  */
 @RunWith(AndroidJUnit4.class)
 public class CharactersLocalDataSourceTest {
@@ -45,11 +42,11 @@ public class CharactersLocalDataSourceTest {
 
     private static final String NAME2 = "name2";
 
-    private CharactersLocalDataSource mLocalDataSource;
+    private CharactersLocalDataSourceImpl mLocalDataSource;
 
     @Before
     public void setUp() {
-        mLocalDataSource = CharactersLocalDataSource.getInstance(
+        mLocalDataSource = CharactersLocalDataSourceImpl.getInstance(
                 InstrumentationRegistry.getTargetContext());
     }
 
@@ -72,7 +69,7 @@ public class CharactersLocalDataSourceTest {
         mLocalDataSource.saveCharacter(character);
 
         // Then the character can be retrieved from the persistent repository
-        mLocalDataSource.getCharacters(new CharactersDataSource.LoadCharactersCallback() {
+        mLocalDataSource.getCharacters(new CharactersLocalDataSource.LoadCharactersCallback() {
             @Override
             public void onCharactersLoaded(List<Character> characters) {
                 assertTrue(characters.contains(character));
