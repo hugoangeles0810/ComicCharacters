@@ -14,24 +14,16 @@
  * limitations under the License.
  */
 
-package io.github.hugoangeles0810.marvelcharacters.data.source;
+package io.github.hugoangeles0810.marvelcharacters.characters;
 
-import android.support.annotation.NonNull;
-import io.github.hugoangeles0810.marvelcharacters.characters.domain.model.Character;
-import java.util.List;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import io.github.hugoangeles0810.marvelcharacters.R;
 
-/**
- * Main entry point for accesing remote characters data
- */
-public interface CharactersRemoteDataSource {
+public class CharactersActivity extends AppCompatActivity {
 
-  interface LoadCharactersCallback {
-
-    void onCharactersLoaded(List<Character> characters);
-
-    void onDataNotAvailable();
+  @Override protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_characters);
   }
-
-  void getCharacters(@NonNull LoadCharactersCallback callback);
-
 }

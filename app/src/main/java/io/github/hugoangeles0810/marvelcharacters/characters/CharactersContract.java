@@ -14,24 +14,30 @@
  * limitations under the License.
  */
 
-package io.github.hugoangeles0810.marvelcharacters.data.source;
+package io.github.hugoangeles0810.marvelcharacters.characters;
 
-import android.support.annotation.NonNull;
+import io.github.hugoangeles0810.marvelcharacters.BasePresenter;
+import io.github.hugoangeles0810.marvelcharacters.BaseView;
 import io.github.hugoangeles0810.marvelcharacters.characters.domain.model.Character;
 import java.util.List;
 
 /**
- * Main entry point for accesing remote characters data
+ * This specifies the contract between the view and the presenter.
  */
-public interface CharactersRemoteDataSource {
+public class CharactersContract {
 
-  interface LoadCharactersCallback {
+  interface View extends BaseView<Presenter> {
 
-    void onCharactersLoaded(List<Character> characters);
+    void setLoadingIndicator(boolean active);
 
-    void onDataNotAvailable();
+    void showCharacters(List<Character> characters);
+
   }
 
-  void getCharacters(@NonNull LoadCharactersCallback callback);
+  interface Presenter extends BasePresenter {
+
+    void loadCharacters();
+
+  }
 
 }

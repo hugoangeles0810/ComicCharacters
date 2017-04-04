@@ -20,7 +20,7 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
-import io.github.hugoangeles0810.marvelcharacters.domain.model.Character;
+import io.github.hugoangeles0810.marvelcharacters.characters.domain.model.Character;
 
 /**
  * Created by hugo on 30/03/17.

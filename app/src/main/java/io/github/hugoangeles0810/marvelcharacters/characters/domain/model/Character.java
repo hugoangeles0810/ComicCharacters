@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.github.hugoangeles0810.marvelcharacters.domain.model;
+package io.github.hugoangeles0810.marvelcharacters.characters.domain.model;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;

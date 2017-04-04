@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package io.github.hugoangeles0810.marvelcharacters.domain.usecase;
+package io.github.hugoangeles0810.marvelcharacters.characters.domain.usecase;
 
 import android.support.annotation.NonNull;
 import io.github.hugoangeles0810.marvelcharacters.UseCase;
 import io.github.hugoangeles0810.marvelcharacters.data.repository.CharactersRepository;
-import io.github.hugoangeles0810.marvelcharacters.domain.model.Character;
+import io.github.hugoangeles0810.marvelcharacters.characters.domain.model.Character;
 import java.util.List;
 
 /**

@@ -22,7 +22,7 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import io.github.hugoangeles0810.marvelcharacters.domain.model.Character;
+import io.github.hugoangeles0810.marvelcharacters.characters.domain.model.Character;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
