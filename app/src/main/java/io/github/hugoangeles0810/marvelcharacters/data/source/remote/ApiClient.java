@@ -20,7 +20,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.squareup.okhttp.OkHttpClient;
-import io.github.hugoangeles0810.marvelcharacters.data.model.Character;
+import io.github.hugoangeles0810.marvelcharacters.domain.model.Character;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import retrofit.RestAdapter;

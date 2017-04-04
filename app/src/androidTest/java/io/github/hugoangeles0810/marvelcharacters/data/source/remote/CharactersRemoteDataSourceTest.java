@@ -22,7 +22,7 @@ import android.support.test.runner.AndroidJUnit4;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.mockwebserver.MockResponse;
 import com.squareup.okhttp.mockwebserver.MockWebServer;
-import io.github.hugoangeles0810.marvelcharacters.data.model.Character;
+import io.github.hugoangeles0810.marvelcharacters.domain.model.Character;
 import io.github.hugoangeles0810.marvelcharacters.data.source.CharactersRemoteDataSource;
 import io.github.hugoangeles0810.marvelcharacters.util.AssetsHelper;
 import java.io.IOException;

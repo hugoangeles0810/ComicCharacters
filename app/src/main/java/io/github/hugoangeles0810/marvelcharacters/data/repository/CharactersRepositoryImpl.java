@@ -17,7 +17,7 @@
 package io.github.hugoangeles0810.marvelcharacters.data.repository;
 
 import android.support.annotation.NonNull;
-import io.github.hugoangeles0810.marvelcharacters.data.model.Character;
+import io.github.hugoangeles0810.marvelcharacters.domain.model.Character;
 import io.github.hugoangeles0810.marvelcharacters.data.source.CharactersLocalDataSource;
 import io.github.hugoangeles0810.marvelcharacters.data.source.CharactersRemoteDataSource;
 import java.util.List;

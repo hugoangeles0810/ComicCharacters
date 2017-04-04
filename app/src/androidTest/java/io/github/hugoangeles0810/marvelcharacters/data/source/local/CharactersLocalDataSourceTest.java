@@ -18,7 +18,7 @@ package io.github.hugoangeles0810.marvelcharacters.data.source.local;
 
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
-import io.github.hugoangeles0810.marvelcharacters.data.model.Character;
+import io.github.hugoangeles0810.marvelcharacters.domain.model.Character;
 import io.github.hugoangeles0810.marvelcharacters.data.source.CharactersLocalDataSource;
 import java.util.List;
 import org.junit.After;

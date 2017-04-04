@@ -14,28 +14,18 @@
  * limitations under the License.
  */
 
-package io.github.hugoangeles0810.marvelcharacters.data.source;
-
-import android.support.annotation.NonNull;
-import io.github.hugoangeles0810.marvelcharacters.domain.model.Character;
-import java.util.List;
+package io.github.hugoangeles0810.marvelcharacters;
 
 /**
- * Main entry point for accesing local characters data
+ * Interface for schedulers, see {@link UseCaseThreadPoolScheduler}.
  */
-public interface CharactersLocalDataSource {
+public interface UseCaseScheduler {
 
-    interface LoadCharactersCallback {
+  void execute(Runnable runnable);
 
-        void onCharactersLoaded(List<Character> characters);
+  <V extends UseCase.ResponseValue> void notifyResponse(final V  response, final
+      UseCase.UseCaseCallback<V> useCaseCallback);
 
-        void onDataNotAvailable();
-    }
-
-    void getCharacters(@NonNull LoadCharactersCallback callback);
-
-    void saveCharacter(@NonNull Character character);
-
-    void deleteAllCharacters();
+  <V extends UseCase.ResponseValue> void onError(final UseCase.UseCaseCallback<V> useCaseCallback);
 
 }
