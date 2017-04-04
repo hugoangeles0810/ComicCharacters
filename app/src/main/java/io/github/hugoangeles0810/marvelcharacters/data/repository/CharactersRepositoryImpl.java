@@ -81,7 +81,7 @@ public class CharactersRepositoryImpl implements CharactersRepository {
             public void onCharactersLoaded(List<Character> characters) {
                 callback.onCharactersLoaded(characters);
 
-                for(Character character : characters) {
+                for (Character character : characters) {
                     mCharsLocalDataSource.saveCharacter(character);
                 }
             }
