@@ -16,14 +16,52 @@
 
 package io.github.hugoangeles0810.marvelcharacters.characters;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import io.github.hugoangeles0810.marvelcharacters.Injection;
 import io.github.hugoangeles0810.marvelcharacters.R;
+import io.github.hugoangeles0810.marvelcharacters.characters.domain.model.Character;
+import java.util.List;
 
-public class CharactersActivity extends AppCompatActivity {
+public class CharactersActivity extends AppCompatActivity implements CharactersContract.View {
+
+  private Toolbar mToolbar;
+
+  private CharactersAdapter mAdapter;
+
+  private CharactersPresenter mPresenter;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_characters);
+
+    mToolbar = (Toolbar) findViewById(R.id.toolbar);
+    mToolbar.setTitle(getString(R.string.app_name));
+    setSupportActionBar(mToolbar);
+
+    RecyclerView recyclerView = (RecyclerView) findViewById(R.id.characters_recycler_view);
+    recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    mAdapter = new CharactersAdapter(this);
+    recyclerView.setAdapter(mAdapter);
+
+    mPresenter = new CharactersPresenter(Injection.provideUseCaseHandler(),
+                                    this, Injection.provideGetCharacters(getApplicationContext()));
+
+  }
+
+  @Override protected void onStart() {
+    super.onStart();
+    mPresenter.start();
+  }
+
+  @Override public void setLoadingIndicator(boolean active) {
+
+  }
+
+  @Override public void showCharacters(List<Character> characters) {
+    mAdapter.setCharacters(characters);
   }
 }

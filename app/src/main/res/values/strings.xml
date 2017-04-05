@@ -1,3 +1,5 @@
 <resources>
-  <string name="app_name">MarvelCharacters</string>
+  <string name="app_name">Marvel Characters</string>
+  <string name="character_name_test">Name Hero</string>
+  <string name="character_description_test">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
 </resources>

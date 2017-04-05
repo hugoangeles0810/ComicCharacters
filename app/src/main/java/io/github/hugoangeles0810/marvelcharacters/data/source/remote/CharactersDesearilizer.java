@@ -60,6 +60,9 @@ public class CharactersDesearilizer implements JsonDeserializer<List<Character>>
     if (objectCharacter.has("thumbnail")) {
       JsonObject thumbnail = objectCharacter.get("thumbnail").getAsJsonObject();
       imageUrl = thumbnail.get("path").getAsString() + "." + thumbnail.get("extension").getAsString();
+      if (imageUrl.contains("image_not_available")) {
+        imageUrl = null;
+      }
     }
     return imageUrl;
   }

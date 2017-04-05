@@ -34,6 +34,10 @@ public class CharactersRemoteDataSourceImpl implements CharactersRemoteDataSourc
     mServicesApi = servicesApi;
   }
 
+  public static CharactersRemoteDataSourceImpl getInstance(ApiClient.ServicesApi servicesApi) {
+    return new CharactersRemoteDataSourceImpl(servicesApi);
+  }
+
   @Override
   public void getCharacters(@NonNull final LoadCharactersCallback callback) {
     try {

@@ -20,8 +20,6 @@ package io.github.hugoangeles0810.marvelcharacters;
  * Created by hugo on 04/04/17.
  */
 
-public interface BaseView<T extends BasePresenter> {
-
-  void setPresenter(T presenter);
+public interface BaseView {
 
 }

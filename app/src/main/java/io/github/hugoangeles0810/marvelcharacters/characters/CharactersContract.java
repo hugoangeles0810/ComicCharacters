@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class CharactersContract {
 
-  interface View extends BaseView<Presenter> {
+  interface View extends BaseView {
 
     void setLoadingIndicator(boolean active);
 
