@@ -29,6 +29,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
 
 /**
@@ -71,41 +72,23 @@ public class CharactersRepositoryTest {
     }
 
     @Test
-    public void shouldRequestsAllTasksFromLocalDataSourceWhenCallGetCharacters() {
-        // When tasks are requested from the tasks repository
+    public void shouldRequestsAllTasksFromRemoteDataSourceWhenCallGetCharacters() {
+        // When characters are requested from the tasks repository
         mCharactersRepository.getCharacters(mLoadCharactersCallback);
 
         // Then tasks are loaded from the local data source
-        verify(mCharsLocalDataSource).getCharacters(any(CharactersLocalDataSource.LoadCharactersCallback.class));
-    }
-
-    @Test
-    public void shouldRepositorySavesAfterFirstRemoteCall() {
-        // When two calls are issued to the characters repository
-        twoCharactersLoadCallsToRepository(mLoadCharactersCallback);
-
-        // Then characters were only requested once from remote data source
         verify(mCharsRemoteDataSource).getCharacters(any(CharactersRemoteDataSource.LoadCharactersCallback.class));
     }
 
-    private void twoCharactersLoadCallsToRepository(
-        CharactersRepository.LoadCharactersCallback mLoadCharactersCallback) {
-        // When characters are requested from repository
-        mCharactersRepository.getCharacters(mLoadCharactersCallback); // First call to API
-
-        // Capture the callback
-        verify(mCharsLocalDataSource).getCharacters(mLoadCharsLocalCallbackCaptor.capture());
-
-        // Local data source doesn't have data yet
-        mLoadCharsLocalCallbackCaptor.getValue().onDataNotAvailable();
-
-        // Verify the remote data source is queried
+    @Test
+    public void shouldRepositorySavesAfterRemoteCall() {
+        // When characters are requested from remote and response characters
+        mCharactersRepository.getCharacters(mLoadCharactersCallback);
         verify(mCharsRemoteDataSource).getCharacters(mLoadCharsRemoteCallbackCaptor.capture());
-
-        // Trigger callback so characters are cached
         mLoadCharsRemoteCallbackCaptor.getValue().onCharactersLoaded(CHARACTERS);
 
-        mCharactersRepository.getCharacters(mLoadCharactersCallback); // Second call to API
+        // Then characters are saved in local data source
+        verify(mCharsLocalDataSource).saveOrUpdate(eq(CHARACTERS));
     }
 
 }

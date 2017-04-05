@@ -54,7 +54,7 @@ public class CharactersRepositoryImpl implements CharactersRepository {
     }
 
     /**
-     * Get characters from local data source (SQLite) or remote data source, whichever is
+     * Get characters from remote data source or local data source (SQLite), whichever is
      * available first
      * <p/>
      * Note: {@link LoadCharactersCallback#onDataNotAvailable()} is fired if all data source fail
@@ -62,28 +62,23 @@ public class CharactersRepositoryImpl implements CharactersRepository {
      */
     @Override
     public void getCharacters(@NonNull final LoadCharactersCallback callback) {
-        mCharsLocalDataSource.getCharacters(new CharactersLocalDataSource.LoadCharactersCallback() {
-            @Override
-            public void onCharactersLoaded(List<Character> characters) {
+        mCharsRemoteDataSource.getCharacters(new CharactersRemoteDataSource.LoadCharactersCallback() {
+            @Override public void onCharactersLoaded(List<Character> characters) {
                 callback.onCharactersLoaded(characters);
+                mCharsLocalDataSource.saveOrUpdate(characters);
             }
 
-            @Override
-            public void onDataNotAvailable() {
-                getCharactersFromRemoteDataSource(callback);
+            @Override public void onDataNotAvailable() {
+                getCharactersFromLocalDataSource(callback);
             }
         });
     }
 
-    private void getCharactersFromRemoteDataSource(final LoadCharactersCallback callback) {
-        mCharsRemoteDataSource.getCharacters(new CharactersRemoteDataSource.LoadCharactersCallback() {
+    private void getCharactersFromLocalDataSource(final LoadCharactersCallback callback) {
+        mCharsLocalDataSource.getCharacters(new CharactersLocalDataSource.LoadCharactersCallback() {
             @Override
             public void onCharactersLoaded(List<Character> characters) {
                 callback.onCharactersLoaded(characters);
-
-                for (Character character : characters) {
-                    mCharsLocalDataSource.saveCharacter(character);
-                }
             }
 
             @Override

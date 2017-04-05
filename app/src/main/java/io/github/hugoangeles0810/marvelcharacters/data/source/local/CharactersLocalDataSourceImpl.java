@@ -105,6 +105,37 @@ public class CharactersLocalDataSourceImpl
     }
 
     @Override
+    public void saveOrUpdate(@NonNull Character character) {
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+        cv.put(CharacterEntry._ID, character.getId());
+        cv.put(CharacterEntry.COLUMN_NAME_NAME, character.getName());
+        cv.put(CharacterEntry.COLUMN_NAME_DESCRIPTION, character.getDescription());
+        cv.put(CharacterEntry.COLUMN_NAME_IMAGE_URL, character.getImageUrl());
+
+        db.replace(CharacterEntry.TABLE_NAME, null, cv);
+
+        db.close();
+    }
+
+    @Override public void saveOrUpdate(@NonNull List<Character> characters) {
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        for (Character character : characters) {
+            ContentValues cv = new ContentValues();
+            cv.put(CharacterEntry._ID, character.getId());
+            cv.put(CharacterEntry.COLUMN_NAME_NAME, character.getName());
+            cv.put(CharacterEntry.COLUMN_NAME_DESCRIPTION, character.getDescription());
+            cv.put(CharacterEntry.COLUMN_NAME_IMAGE_URL, character.getImageUrl());
+
+            db.replace(CharacterEntry.TABLE_NAME, null, cv);
+        }
+
+        db.close();
+    }
+
+    @Override
     public void deleteAllCharacters() {
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 

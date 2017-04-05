@@ -36,6 +36,10 @@ public interface CharactersLocalDataSource {
 
     void saveCharacter(@NonNull Character character);
 
+    void saveOrUpdate(@NonNull Character character);
+
+    void saveOrUpdate(@NonNull List<Character> character);
+
     void deleteAllCharacters();
 
 }

@@ -45,7 +45,9 @@ public class CharactersPresenter implements CharactersContract.Presenter {
   }
 
   @Override public void loadCharacters() {
-    mUseCaseHandler.execute(mGetCharacters, new GetCharacters.RequestValues(), new UseCase.UseCaseCallback<GetCharacters.ResponseValue>() {
+    mUseCaseHandler.execute(mGetCharacters,
+                            new GetCharacters.RequestValues(),
+                            new UseCase.UseCaseCallback<GetCharacters.ResponseValue>() {
 
       @Override public void onSuccess(GetCharacters.ResponseValue response) {
         mView.showCharacters(response.getCharacters());

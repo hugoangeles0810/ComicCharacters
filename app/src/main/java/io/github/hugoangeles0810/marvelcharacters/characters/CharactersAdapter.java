@@ -24,9 +24,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.bumptech.glide.Glide;
 import io.github.hugoangeles0810.marvelcharacters.R;
 import io.github.hugoangeles0810.marvelcharacters.characters.domain.model.Character;
+import io.github.hugoangeles0810.marvelcharacters.util.ImageLoader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,11 +59,11 @@ public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.Vi
       holder.textViewDescription.setVisibility(View.GONE);
     }
 
-    // TODO: Use ImageLoader Library into a Wrapper
-    Glide.with(holder.imageViewPhoto.getContext())
-          .load(character.getImageUrl())
-          .placeholder(R.drawable.hero_placeholder)
-          .into(holder.imageViewPhoto);
+    ImageLoader.load(
+          holder.imageViewPhoto.getContext(),
+          character.getImageUrl(),
+          R.drawable.hero_placeholder,
+          holder.imageViewPhoto);
   }
 
   @Override public int getItemCount() {
