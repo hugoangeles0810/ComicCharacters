@@ -20,7 +20,7 @@ android {
   compileSdkVersion 25
   buildToolsVersion "25.0.2"
   defaultConfig {
-    applicationId "io.github.hugoangeles0810.marvelcharacters"
+    applicationId "io.github.hugoangeles0810.comiccharacters"
     minSdkVersion 15
     targetSdkVersion 25
     versionCode 1

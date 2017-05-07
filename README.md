@@ -1,5 +1,5 @@
-# MarvelCharacters
-App para obtener información de los personajes del Mundo Marvel
+# Comic Characters
+App para obtener información de los personajes de comics
 
 Desarrollado Por
 ------------
