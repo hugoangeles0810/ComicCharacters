@@ -34,8 +34,8 @@ public abstract class EndlessRecyclerOnScrollListener
         try {
             layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
         } catch (ClassCastException e) {
-            throw new UnsupportedOperationException("the layoutManager of the recycler must be" +
-                    " instance of LinearLayoutManager or GridLayoutManager");
+            throw new UnsupportedOperationException("the layoutManager of the recycler must be"
+                    + " instance of LinearLayoutManager or GridLayoutManager");
         }
 
         visibleItemCount = recyclerView.getChildCount();

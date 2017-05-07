@@ -21,12 +21,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
-import io.github.hugoangeles0810.marvelcharacters.characters.domain.model.Character;
-import io.github.hugoangeles0810.marvelcharacters.data.source.CharactersLocalDataSource;
-import io.github.hugoangeles0810.marvelcharacters.data.source.local.MarvelCharactersPersistentContract.CharacterEntry;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import io.github.hugoangeles0810.marvelcharacters.characters.domain.model.Character;
+import io.github.hugoangeles0810.marvelcharacters.data.source.local.MarvelCharactersPersistentContract.CharacterEntry;
 
 /**
  * Created by hugo on 31/03/17.
