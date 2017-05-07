@@ -16,8 +16,10 @@
 
 package io.github.hugoangeles0810.marvelcharacters.characters;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -30,7 +32,8 @@ import io.github.hugoangeles0810.marvelcharacters.Injection;
 import io.github.hugoangeles0810.marvelcharacters.R;
 import io.github.hugoangeles0810.marvelcharacters.characters.domain.model.Character;
 
-public class CharactersActivity extends AppCompatActivity implements CharactersContract.View {
+public class CharactersActivity extends AppCompatActivity
+                        implements CharactersContract.View {
 
   private static final String LOG_TAG =  CharactersActivity.class.getSimpleName();
 
@@ -61,7 +64,15 @@ public class CharactersActivity extends AppCompatActivity implements CharactersC
 
   private void setupRecycler() {
     RecyclerView recyclerView = (RecyclerView) findViewById(R.id.characters_recycler_view);
-    recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    RecyclerView.LayoutManager layoutManager;
+
+    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+      layoutManager = new LinearLayoutManager(this);
+    } else {
+      layoutManager = new GridLayoutManager(this, 2);
+    }
+
+    recyclerView.setLayoutManager(layoutManager);
     mAdapter = new CharactersAdapter(this);
     recyclerView.setAdapter(mAdapter);
     recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener() {

@@ -71,8 +71,8 @@ public class ApiClient {
 
   private static OkHttpClient getClient() {
     OkHttpClient client = new OkHttpClient();
-    client.setConnectTimeout(2, TimeUnit.MINUTES);
-    client.setReadTimeout(2, TimeUnit.MINUTES);
+    client.setConnectTimeout(20, TimeUnit.SECONDS);
+    client.setReadTimeout(20, TimeUnit.SECONDS);
     return client;
   }
 
