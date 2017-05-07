@@ -18,14 +18,18 @@ package io.github.hugoangeles0810.marvelcharacters.data.source.local;
 
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
-import io.github.hugoangeles0810.marvelcharacters.characters.domain.model.Character;
-import io.github.hugoangeles0810.marvelcharacters.data.source.CharactersLocalDataSource;
-import java.util.List;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.List;
+
+import io.github.hugoangeles0810.marvelcharacters.characters.domain.model.Character;
+import io.github.hugoangeles0810.marvelcharacters.data.source.CharactersLocalDataSource;
+
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -82,6 +86,32 @@ public class CharactersLocalDataSourceTest {
         });
     }
 
+    @Test
+    public void shouldRetrieveCharactersWithOffsetAndLimit() {
+        final int insertionsQuantity = 10;
+        int offset = 5;
+        int limit = 5;
+        final int expectedSize = 5;
+        insertRamdomCharacters(insertionsQuantity);
 
+        mLocalDataSource.getCharacters(offset, limit, new CharactersLocalDataSource.LoadCharactersCallback() {
+            @Override
+            public void onCharactersLoaded(List<Character> characters) {
+                assertEquals(characters.size(), expectedSize);
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                fail("Callback error");
+            }
+        });
+    }
+
+    private void insertRamdomCharacters(int quantity) {
+        for (long i = 1; i <= quantity; i++) {
+            Character character = new Character(i, "Name " + i, "Description " + i, "image " + i);
+            mLocalDataSource.saveCharacter(character);
+        }
+    }
 
 }

@@ -36,5 +36,6 @@ public interface CharactersRepository {
     }
 
     void getCharacters(@NonNull  LoadCharactersCallback callback);
+    void getCharacters(int offset, int limit, @NonNull  LoadCharactersCallback callback);
 
 }

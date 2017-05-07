@@ -21,11 +21,10 @@ import io.github.hugoangeles0810.marvelcharacters.UseCase;
 import io.github.hugoangeles0810.marvelcharacters.UseCaseHandler;
 import io.github.hugoangeles0810.marvelcharacters.characters.domain.usecase.GetCharacters;
 
-/**
- * Created by hugo on 04/04/17.
- */
 
 public class CharactersPresenter implements CharactersContract.Presenter {
+
+  private static final int PAGE_SIZE = 20;
 
   private final CharactersContract.View mView;
   private final GetCharacters mGetCharacters;
@@ -45,17 +44,37 @@ public class CharactersPresenter implements CharactersContract.Presenter {
   }
 
   @Override public void loadCharacters() {
+    mView.showLoading();
     mUseCaseHandler.execute(mGetCharacters,
-                            new GetCharacters.RequestValues(),
+                            new GetCharacters.RequestValues(0, PAGE_SIZE),
                             new UseCase.UseCaseCallback<GetCharacters.ResponseValue>() {
 
       @Override public void onSuccess(GetCharacters.ResponseValue response) {
         mView.showCharacters(response.getCharacters());
+        mView.hideLoading();
       }
 
       @Override public void onError() {
-
+        mView.hideLoading();
       }
     });
+  }
+
+  @Override
+  public void loadMoreCharacters(int offset) {
+    mView.showLoading();
+    mUseCaseHandler.execute(mGetCharacters,
+            new GetCharacters.RequestValues(offset, PAGE_SIZE),
+            new UseCase.UseCaseCallback<GetCharacters.ResponseValue>() {
+
+              @Override public void onSuccess(GetCharacters.ResponseValue response) {
+                mView.addCharacters(response.getCharacters());
+                mView.hideLoading();
+              }
+
+              @Override public void onError() {
+                mView.hideLoading();
+              }
+            });
   }
 }

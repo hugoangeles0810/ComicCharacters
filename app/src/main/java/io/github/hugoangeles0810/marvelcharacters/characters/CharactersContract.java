@@ -28,15 +28,18 @@ public class CharactersContract {
 
   interface View extends BaseView {
 
-    void setLoadingIndicator(boolean active);
+    void showLoading();
+    void hideLoading();
 
     void showCharacters(List<Character> characters);
+    void addCharacters(List<Character> characters);
 
   }
 
   interface Presenter extends BasePresenter {
 
     void loadCharacters();
+    void loadMoreCharacters(int offset);
 
   }
 

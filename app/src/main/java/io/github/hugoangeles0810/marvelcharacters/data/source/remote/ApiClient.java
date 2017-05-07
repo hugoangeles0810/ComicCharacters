@@ -28,6 +28,7 @@ import retrofit.client.OkClient;
 import retrofit.converter.GsonConverter;
 import retrofit.http.GET;
 import retrofit.http.Headers;
+import retrofit.http.Query;
 
 /**
  * Created by hugo on 01/04/17.
@@ -86,6 +87,11 @@ public class ApiClient {
     @Headers("Content-Type: application/json")
     @GET("/v1/public/characters?apikey=f8baf9a586b20573c4f2704530ac26cb&hash=2103b6bbb9425e559f25b8260997eafe&ts=1")
     List<Character> loadHeroes();
+
+    @Headers("Content-Type: application/json")
+    @GET("/v1/public/characters?apikey=f8baf9a586b20573c4f2704530ac26cb&hash=2103b6bbb9425e559f25b8260997eafe&ts=1")
+    List<Character> loadHeroes(@Query("offset") int offset,
+                               @Query("limit") int limit);
   }
 }
 

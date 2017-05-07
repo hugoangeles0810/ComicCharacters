@@ -74,8 +74,36 @@ public class CharactersRepositoryImpl implements CharactersRepository {
         });
     }
 
+    @Override
+    public void getCharacters(final int offset, final int limit, @NonNull final LoadCharactersCallback callback) {
+        mCharsRemoteDataSource.getCharacters(offset, limit, new CharactersRemoteDataSource.LoadCharactersCallback() {
+            @Override public void onCharactersLoaded(List<Character> characters) {
+                callback.onCharactersLoaded(characters);
+                mCharsLocalDataSource.saveOrUpdate(characters);
+            }
+
+            @Override public void onDataNotAvailable() {
+                getCharactersFromLocalDataSource(offset, limit, callback);
+            }
+        });
+    }
+
     private void getCharactersFromLocalDataSource(final LoadCharactersCallback callback) {
         mCharsLocalDataSource.getCharacters(new CharactersLocalDataSource.LoadCharactersCallback() {
+            @Override
+            public void onCharactersLoaded(List<Character> characters) {
+                callback.onCharactersLoaded(characters);
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                callback.onDataNotAvailable();
+            }
+        });
+    }
+
+    private void getCharactersFromLocalDataSource(int offset, int limit, final LoadCharactersCallback callback) {
+        mCharsLocalDataSource.getCharacters(offset, limit, new CharactersLocalDataSource.LoadCharactersCallback() {
             @Override
             public void onCharactersLoaded(List<Character> characters) {
                 callback.onCharactersLoaded(characters);

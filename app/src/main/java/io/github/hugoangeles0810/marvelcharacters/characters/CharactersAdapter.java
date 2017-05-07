@@ -78,6 +78,11 @@ public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.Vi
     notifyDataSetChanged();
   }
 
+public void addCharacters(@NonNull List<Character> characters) {
+    mData.addAll(characters);
+    notifyDataSetChanged();
+}
+
   static final class ViewHolder extends RecyclerView.ViewHolder {
 
     ImageView imageViewPhoto;

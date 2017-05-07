@@ -17,8 +17,10 @@
 package io.github.hugoangeles0810.marvelcharacters.data.source;
 
 import android.support.annotation.NonNull;
-import io.github.hugoangeles0810.marvelcharacters.characters.domain.model.Character;
+
 import java.util.List;
+
+import io.github.hugoangeles0810.marvelcharacters.characters.domain.model.Character;
 
 /**
  * Main entry point for accesing local characters data
@@ -33,6 +35,8 @@ public interface CharactersLocalDataSource {
     }
 
     void getCharacters(@NonNull LoadCharactersCallback callback);
+
+    void getCharacters(int offset, int limit, @NonNull LoadCharactersCallback callback);
 
     void saveCharacter(@NonNull Character character);
 

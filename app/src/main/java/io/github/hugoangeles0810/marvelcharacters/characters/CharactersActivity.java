@@ -21,20 +21,28 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.ProgressBar;
+
+import java.util.List;
+
 import io.github.hugoangeles0810.marvelcharacters.Injection;
 import io.github.hugoangeles0810.marvelcharacters.R;
 import io.github.hugoangeles0810.marvelcharacters.characters.domain.model.Character;
-import java.util.List;
 
 public class CharactersActivity extends AppCompatActivity implements CharactersContract.View {
 
+  private static final String LOG_TAG =  CharactersActivity.class.getSimpleName();
+
   private Toolbar mToolbar;
+  private ProgressBar mProgressBar;
 
   private CharactersAdapter mAdapter;
 
   private CharactersPresenter mPresenter;
 
-  @Override protected void onCreate(Bundle savedInstanceState) {
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_characters);
 
@@ -42,26 +50,51 @@ public class CharactersActivity extends AppCompatActivity implements CharactersC
     mToolbar.setTitle(getString(R.string.app_name));
     setSupportActionBar(mToolbar);
 
-    RecyclerView recyclerView = (RecyclerView) findViewById(R.id.characters_recycler_view);
-    recyclerView.setLayoutManager(new LinearLayoutManager(this));
-    mAdapter = new CharactersAdapter(this);
-    recyclerView.setAdapter(mAdapter);
+    mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
 
     mPresenter = new CharactersPresenter(Injection.provideUseCaseHandler(),
                                     this, Injection.provideGetCharacters(getApplicationContext()));
 
+    setupRecycler();
+
   }
 
-  @Override protected void onStart() {
+  private void setupRecycler() {
+    RecyclerView recyclerView = (RecyclerView) findViewById(R.id.characters_recycler_view);
+    recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    mAdapter = new CharactersAdapter(this);
+    recyclerView.setAdapter(mAdapter);
+    recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener() {
+      @Override
+      public void onLoadMore(int offset) {
+        mPresenter.loadMoreCharacters(offset);
+      }
+    });
+  }
+
+  @Override
+  protected void onStart() {
     super.onStart();
     mPresenter.start();
   }
 
-  @Override public void setLoadingIndicator(boolean active) {
-
+  @Override
+  public void showLoading() {
+    mProgressBar.setVisibility(View.VISIBLE);
   }
 
-  @Override public void showCharacters(List<Character> characters) {
+  @Override
+  public void hideLoading() {
+    mProgressBar.setVisibility(View.INVISIBLE);
+  }
+
+  @Override
+  public void showCharacters(List<Character> characters) {
     mAdapter.setCharacters(characters);
+  }
+
+  @Override
+  public void addCharacters(List<Character> characters) {
+    mAdapter.addCharacters(characters);
   }
 }

@@ -36,7 +36,8 @@ public class GetCharacters extends UseCase<GetCharacters.RequestValues, GetChara
 
   @Override
   protected void executeUseCase(GetCharacters.RequestValues requestValues) {
-    mCharactersRepository.getCharacters(new CharactersRepository.LoadCharactersCallback() {
+    mCharactersRepository.getCharacters(requestValues.getOffset(), requestValues.getLimit(),
+            new CharactersRepository.LoadCharactersCallback() {
       @Override public void onCharactersLoaded(List<Character> characters) {
         ResponseValue response = new ResponseValue(characters);
         getUseCaseCallback().onSuccess(response);
@@ -49,7 +50,21 @@ public class GetCharacters extends UseCase<GetCharacters.RequestValues, GetChara
   }
 
   public static final class RequestValues implements UseCase.RequestValues {
+    private final int mOffset;
+    private final int mLimit;
 
+    public RequestValues(int offset, int limit) {
+      mOffset = offset;
+      mLimit = limit;
+    }
+
+    public int getOffset() {
+      return mOffset;
+    }
+
+    public int getLimit() {
+      return mLimit;
+    }
   }
 
   public static final class ResponseValue implements UseCase.ResponseValue {

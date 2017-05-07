@@ -53,4 +53,20 @@ public class CharactersRemoteDataSourceImpl implements CharactersRemoteDataSourc
       return;
     }
   }
+
+  @Override
+  public void getCharacters(int offset, int limit, @NonNull LoadCharactersCallback callback) {
+    try {
+      List<Character> characters = mServicesApi.loadHeroes(offset, limit);
+      if (characters != null || !characters.isEmpty()) {
+        callback.onCharactersLoaded(characters);
+      } else {
+        callback.onDataNotAvailable();
+      }
+      return;
+    } catch (RetrofitError e) {
+      callback.onDataNotAvailable();
+      return;
+    }
+  }
 }

@@ -22,9 +22,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import io.github.hugoangeles0810.marvelcharacters.characters.domain.model.Character;
+import io.github.hugoangeles0810.marvelcharacters.data.source.CharactersLocalDataSource;
 import io.github.hugoangeles0810.marvelcharacters.data.source.local.MarvelCharactersPersistentContract.CharacterEntry;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by hugo on 31/03/17.
@@ -64,6 +66,55 @@ public class CharactersLocalDataSourceImpl
 
         Cursor c = db.query(
                 CharacterEntry.TABLE_NAME, projection, null, null, null, null, null);
+
+        if (c != null && c.getCount() > 0) {
+            while (c.moveToNext()) {
+                Long id = c.getLong(c.getColumnIndexOrThrow(CharacterEntry._ID));
+                String name = c.getString(c.getColumnIndexOrThrow(CharacterEntry.COLUMN_NAME_NAME));
+                String description = c.getString(c.getColumnIndexOrThrow(CharacterEntry.COLUMN_NAME_DESCRIPTION));
+                String imageUrl = c.getString(c.getColumnIndexOrThrow(CharacterEntry.COLUMN_NAME_IMAGE_URL));
+                Character character = new Character(id, name, description, imageUrl);
+                characters.add(character);
+            }
+        }
+
+        if (c != null) {
+            c.close();
+        }
+
+        db.close();
+
+        if (characters.isEmpty()) {
+            callback.onDataNotAvailable();
+        } else {
+            callback.onCharactersLoaded(characters);
+        }
+    }
+
+    @Override
+    public void getCharacters(int offset, int limit, @NonNull LoadCharactersCallback callback) {
+        List<Character> characters = new ArrayList<>();
+
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
+        String[] projection = {
+                CharacterEntry._ID,
+                CharacterEntry.COLUMN_NAME_NAME,
+                CharacterEntry.COLUMN_NAME_DESCRIPTION,
+                CharacterEntry.COLUMN_NAME_IMAGE_URL
+        };
+
+        String limitQuery = String.format(Locale.getDefault(), "%d, %d", offset, limit);
+
+        Cursor c = db.query(
+                CharacterEntry.TABLE_NAME,
+                projection,
+                null,
+                null,
+                null,
+                null,
+                null,
+                limitQuery);
 
         if (c != null && c.getCount() > 0) {
             while (c.moveToNext()) {
