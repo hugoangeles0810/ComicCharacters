@@ -26,6 +26,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.github.hugoangeles0810.marvelcharacters.Injection;
@@ -36,6 +37,7 @@ public class CharactersActivity extends AppCompatActivity
                         implements CharactersContract.View {
 
   private static final String LOG_TAG =  CharactersActivity.class.getSimpleName();
+  private static final String CHARACTERS_KEY = "characters";
 
   private Toolbar mToolbar;
   private ProgressBar mProgressBar;
@@ -60,6 +62,7 @@ public class CharactersActivity extends AppCompatActivity
 
     setupRecycler();
 
+    restoreOrLoadCharacters(savedInstanceState);
   }
 
   private void setupRecycler() {
@@ -83,10 +86,19 @@ public class CharactersActivity extends AppCompatActivity
     });
   }
 
+  private void restoreOrLoadCharacters(Bundle savedInstanceState) {
+    if (savedInstanceState != null) {
+        List<Character> characters = (List<Character>) savedInstanceState.getSerializable(CHARACTERS_KEY);
+        mAdapter.setCharacters(characters);
+    } else {
+      mPresenter.loadCharacters();
+    }
+  }
+
   @Override
-  protected void onStart() {
-    super.onStart();
-    mPresenter.start();
+  protected void onSaveInstanceState(Bundle outState) {
+    super.onSaveInstanceState(outState);
+    outState.putSerializable(CHARACTERS_KEY, (ArrayList<Character>) mAdapter.getCharacters());
   }
 
   @Override
