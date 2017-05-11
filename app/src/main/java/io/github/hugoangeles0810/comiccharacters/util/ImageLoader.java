@@ -17,22 +17,26 @@
 package io.github.hugoangeles0810.comiccharacters.util;
 
 import android.content.Context;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
 import android.widget.ImageView;
+
 import com.bumptech.glide.Glide;
 
-/**
- * Created by hugo on 04/04/17.
- */
 
 public class ImageLoader {
 
-  public static void load(Context context, String url, ImageView imageView) {
+  public static void load(@NonNull  Context context,
+                          @NonNull String url,
+                          @NonNull ImageView imageView) {
     Glide.with(context)
           .load(url)
           .into(imageView);
   }
 
-  public static void load(Context context, String url, int placeholder, ImageView imageView) {
+  public static void load(@NonNull Context context, String url,
+                          @DrawableRes  int placeholder,
+                          @NonNull ImageView imageView) {
     Glide.with(context)
           .load(url)
           .placeholder(placeholder)

@@ -19,7 +19,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".characterdetail.CharacterDetailActivity"/>
+            android:name=".characterdetail.CharacterDetailActivity"
+            android:parentActivityName=".characters.CharactersActivity">
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                       android:value=".characters.CharactersActivity" />
+        </activity>
     </application>
 
 </manifest>

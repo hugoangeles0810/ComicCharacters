@@ -53,7 +53,14 @@ public class CharacterDetailActivity extends AppCompatActivity
     private void initUI() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mCharacterImageView = (ImageView) findViewById(R.id.character_image_view);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
     @Override
@@ -61,6 +68,7 @@ public class CharacterDetailActivity extends AppCompatActivity
         getSupportActionBar().setTitle(mCharacter.getName());
         ImageLoader.load(this,
                         mCharacter.getImageUrl(),
+                        R.drawable.hero_placeholder,
                         mCharacterImageView);
     }
 
