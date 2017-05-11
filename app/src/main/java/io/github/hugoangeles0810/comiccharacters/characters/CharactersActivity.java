@@ -38,6 +38,7 @@ import java.util.List;
 import io.github.hugoangeles0810.comiccharacters.Injection;
 import io.github.hugoangeles0810.comiccharacters.R;
 import io.github.hugoangeles0810.comiccharacters.characters.domain.model.Character;
+import io.github.hugoangeles0810.comiccharacters.navigation.Navigator;
 
 public class CharactersActivity extends AppCompatActivity
                         implements CharactersContract.View {
@@ -122,6 +123,12 @@ public class CharactersActivity extends AppCompatActivity
 
     recyclerView.setLayoutManager(layoutManager);
     mAdapter = new CharactersAdapter(this);
+    mAdapter.setOnItemClickListener(new CharactersAdapter.OnItemClickListener() {
+      @Override
+      public void onItemClick(Character character) {
+        Navigator.navigateToCharactersDetail(getApplicationContext(), character);
+      }
+    });
     recyclerView.setAdapter(mAdapter);
     recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener() {
       @Override

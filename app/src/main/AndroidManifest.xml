@@ -19,10 +19,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".characterdetail.ScrollingActivity"
-            android:label="@string/title_activity_scrolling"
-            android:theme="@style/AppTheme">
-        </activity>
+            android:name=".characterdetail.CharacterDetailActivity"/>
     </application>
 
 </manifest>

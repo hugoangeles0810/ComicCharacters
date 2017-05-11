@@ -35,10 +35,19 @@ public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.Vi
 
   private List<Character> mData;
   private LayoutInflater mInflater;
+  private OnItemClickListener mListener;
+
+  interface OnItemClickListener {
+    void onItemClick(Character character);
+  }
 
   public CharactersAdapter(@NonNull Context context) {
     mInflater = LayoutInflater.from(context);
     mData = new ArrayList<>();
+  }
+
+  public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+    this.mListener = onItemClickListener;
   }
 
   @Override public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -48,19 +57,7 @@ public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.Vi
 
   @Override public void onBindViewHolder(ViewHolder holder, int position) {
     Character character = mData.get(position);
-    holder.textViewName.setText(character.getName());
-    if (character.getDescription() != null && !character.getDescription().trim().isEmpty()) {
-      holder.textViewDescription.setVisibility(View.VISIBLE);
-      holder.textViewDescription.setText(character.getDescription());
-    } else {
-      holder.textViewDescription.setVisibility(View.GONE);
-    }
-
-    ImageLoader.load(
-          holder.imageViewPhoto.getContext(),
-          character.getImageUrl(),
-          R.drawable.hero_placeholder,
-          holder.imageViewPhoto);
+    holder.bind(character, mListener);
   }
 
   @Override public int getItemCount() {
@@ -84,7 +81,7 @@ public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.Vi
     return mData;
   }
 
-  static final class ViewHolder extends RecyclerView.ViewHolder {
+  static class ViewHolder extends RecyclerView.ViewHolder {
 
     ImageView imageViewPhoto;
     TextView  textViewName;
@@ -95,6 +92,31 @@ public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.Vi
       imageViewPhoto = (ImageView) itemView.findViewById(R.id.character_imageview_image);
       textViewName = (TextView) itemView.findViewById(R.id.character_textview_name);
       textViewDescription = (TextView) itemView.findViewById(R.id.character_textview_description);
+    }
+
+    public void bind(final Character character, final OnItemClickListener listener) {
+      textViewName.setText(character.getName());
+      if (character.getDescription() != null && !character.getDescription().trim().isEmpty()) {
+        textViewDescription.setVisibility(View.VISIBLE);
+        textViewDescription.setText(character.getDescription());
+      } else {
+        textViewDescription.setVisibility(View.GONE);
+      }
+
+      ImageLoader.load(
+              imageViewPhoto.getContext(),
+              character.getImageUrl(),
+              R.drawable.hero_placeholder,
+              imageViewPhoto);
+
+      itemView.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+          if (listener != null) {
+            listener.onItemClick(character);
+          }
+        }
+      });
     }
   }
 

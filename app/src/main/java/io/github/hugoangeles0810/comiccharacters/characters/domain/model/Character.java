@@ -19,10 +19,12 @@ package io.github.hugoangeles0810.comiccharacters.characters.domain.model;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import java.io.Serializable;
+
 /**
  * Inmutable model class for a Character
  */
-public class Character {
+public class Character implements Serializable {
 
     @NonNull
     private final Long mId;
