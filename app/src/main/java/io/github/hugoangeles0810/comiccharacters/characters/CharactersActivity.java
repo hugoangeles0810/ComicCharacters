@@ -16,6 +16,7 @@
 
 package io.github.hugoangeles0810.comiccharacters.characters;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
@@ -37,8 +38,8 @@ import java.util.List;
 
 import io.github.hugoangeles0810.comiccharacters.Injection;
 import io.github.hugoangeles0810.comiccharacters.R;
+import io.github.hugoangeles0810.comiccharacters.characterdetail.CharacterDetailActivity;
 import io.github.hugoangeles0810.comiccharacters.characters.domain.model.Character;
-import io.github.hugoangeles0810.comiccharacters.navigation.Navigator;
 
 public class CharactersActivity extends AppCompatActivity
                         implements CharactersContract.View {
@@ -122,11 +123,15 @@ public class CharactersActivity extends AppCompatActivity
     }
 
     recyclerView.setLayoutManager(layoutManager);
-    mAdapter = new CharactersAdapter(this);
+    mAdapter = new CharactersAdapter();
     mAdapter.setOnItemClickListener(new CharactersAdapter.OnItemClickListener() {
       @Override
       public void onItemClick(Character character) {
-        Navigator.navigateToCharactersDetail(getApplicationContext(), character);
+        Intent intent = new Intent(CharactersActivity.this, CharacterDetailActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(CharacterDetailActivity.CHARACTER_KEY, character);
+        intent.putExtras(bundle);
+        startActivity(intent);
       }
     });
     recyclerView.setAdapter(mAdapter);

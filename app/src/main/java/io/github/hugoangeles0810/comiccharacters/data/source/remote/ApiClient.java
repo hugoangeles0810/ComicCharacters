@@ -20,14 +20,18 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.squareup.okhttp.OkHttpClient;
-import io.github.hugoangeles0810.comiccharacters.characters.domain.model.Character;
+
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import io.github.hugoangeles0810.comiccharacters.characterdetail.domain.model.Comic;
+import io.github.hugoangeles0810.comiccharacters.characters.domain.model.Character;
 import retrofit.RestAdapter;
 import retrofit.client.OkClient;
 import retrofit.converter.GsonConverter;
 import retrofit.http.GET;
 import retrofit.http.Headers;
+import retrofit.http.Path;
 import retrofit.http.Query;
 
 
@@ -75,7 +79,8 @@ public class ApiClient {
 
   private static Gson getGson() {
     Gson gson = new GsonBuilder()
-        .registerTypeAdapter(new TypeToken<List<Character>>() { } .getType(), new CharactersDesearilizer())
+        .registerTypeAdapter(new TypeToken<List<Character>>() { } .getType(), new CharactersDeserializer())
+        .registerTypeAdapter(new TypeToken<List<Comic>>() { } .getType(), new ComicsDeserializer())
         .create();
     return gson;
   }
@@ -86,15 +91,22 @@ public class ApiClient {
     List<Character> loadHeroes();
 
     @Headers("Content-Type: application/json")
-    @GET("/v1/public/characters?apikey=f8baf9a586b20573c4f2704530ac26cb&hash=2103b6bbb9425e559f25b8260997eafe&ts=1")
+    @GET("/v1/public/characters"
+            + "?apikey=f8baf9a586b20573c4f2704530ac26cb&hash=2103b6bbb9425e559f25b8260997eafe&ts=1")
     List<Character> loadHeroes(@Query("offset") int offset,
                                @Query("limit") int limit);
 
     @Headers("Content-Type: application/json")
-    @GET("/v1/public/characters?apikey=f8baf9a586b20573c4f2704530ac26cb&hash=2103b6bbb9425e559f25b8260997eafe&ts=1")
+    @GET("/v1/public/characters"
+            + "?apikey=f8baf9a586b20573c4f2704530ac26cb&hash=2103b6bbb9425e559f25b8260997eafe&ts=1")
     List<Character> loadHeroes(@Query("nameStartsWith") String term,
                                @Query("offset") int offset,
                                @Query("limit") int limit);
+
+    @Headers("Content-Type: application/json")
+    @GET("/v1/public/characters/{characterId}/comics"
+            + "?apikey=f8baf9a586b20573c4f2704530ac26cb&hash=2103b6bbb9425e559f25b8260997eafe&ts=1")
+    List<Comic> getComics(@Path("characterId") Long characterId);
   }
 }
 

@@ -22,15 +22,17 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import io.github.hugoangeles0810.comiccharacters.characters.domain.model.Character;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.github.hugoangeles0810.comiccharacters.characters.domain.model.Character;
 
-public class CharactersDesearilizer implements JsonDeserializer<List<Character>> {
 
-  public static final String TAG = CharactersDesearilizer.class.getSimpleName();
+public class CharactersDeserializer implements JsonDeserializer<List<Character>> {
+
+  public static final String TAG = CharactersDeserializer.class.getSimpleName();
 
   @Override
   public List<Character> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws

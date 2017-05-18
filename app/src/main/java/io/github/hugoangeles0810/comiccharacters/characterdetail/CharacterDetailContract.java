@@ -16,8 +16,11 @@
 
 package io.github.hugoangeles0810.comiccharacters.characterdetail;
 
+import java.util.List;
+
 import io.github.hugoangeles0810.comiccharacters.BasePresenter;
 import io.github.hugoangeles0810.comiccharacters.BaseView;
+import io.github.hugoangeles0810.comiccharacters.characterdetail.domain.model.Comic;
 import io.github.hugoangeles0810.comiccharacters.characters.domain.model.Character;
 
 public class CharacterDetailContract {
@@ -25,9 +28,14 @@ public class CharacterDetailContract {
     interface View extends BaseView {
         void showCharacterExtra();
         Character getCharacterExtra();
+        void showComics(List<Comic> comics);
+        void noComicsAvailable();
+        void showComicProgress();
+        void hideComicProgress();
     }
 
     interface Presenter extends BasePresenter {
         void onCreate();
+        void loadComics();
     }
 }

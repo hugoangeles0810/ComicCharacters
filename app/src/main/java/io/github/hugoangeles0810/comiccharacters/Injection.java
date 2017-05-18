@@ -18,16 +18,17 @@ package io.github.hugoangeles0810.comiccharacters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+
+import io.github.hugoangeles0810.comiccharacters.characterdetail.domain.usecase.GetComics;
 import io.github.hugoangeles0810.comiccharacters.characters.domain.usecase.GetCharacters;
 import io.github.hugoangeles0810.comiccharacters.data.repository.CharactersRepository;
 import io.github.hugoangeles0810.comiccharacters.data.repository.CharactersRepositoryImpl;
+import io.github.hugoangeles0810.comiccharacters.data.repository.ComicsRepository;
+import io.github.hugoangeles0810.comiccharacters.data.repository.ComicsRepositoryImpl;
 import io.github.hugoangeles0810.comiccharacters.data.source.local.CharactersLocalDataSourceImpl;
 import io.github.hugoangeles0810.comiccharacters.data.source.remote.ApiClient;
 import io.github.hugoangeles0810.comiccharacters.data.source.remote.CharactersRemoteDataSourceImpl;
-
-/**
- * Created by hugo on 04/04/17.
- */
+import io.github.hugoangeles0810.comiccharacters.data.source.remote.ComicsRemoteDataSourceImpl;
 
 public class Injection {
 
@@ -41,8 +42,17 @@ public class Injection {
         CharactersLocalDataSourceImpl.getInstance(context));
   }
 
+  public static ComicsRepository provideComicsRepository() {
+    return ComicsRepositoryImpl.getInstance(
+            ComicsRemoteDataSourceImpl.getInstance(ApiClient.getInstance()));
+  }
+
   public static GetCharacters provideGetCharacters(@NonNull Context context) {
     return new GetCharacters(provideCharactersRepository(context));
+  }
+
+  public static GetComics provideGetComics() {
+    return new GetComics(provideComicsRepository());
   }
 
 }

@@ -16,26 +16,21 @@
 
 package io.github.hugoangeles0810.comiccharacters.data.source;
 
-import android.support.annotation.NonNull;
-
 import java.util.List;
 
-import io.github.hugoangeles0810.comiccharacters.characters.domain.model.Character;
+import io.github.hugoangeles0810.comiccharacters.characterdetail.domain.model.Comic;
 
 /**
- * Main entry point for accesing remote characters data
+ * Main entry point for accesing remote comics data
  */
-public interface CharactersRemoteDataSource {
+public interface ComicsRemoteDataSource {
 
-  interface LoadCharactersCallback {
+    interface LoadComicsCallback {
 
-    void onCharactersLoaded(List<Character> characters);
+        void onComicsLoaded(List<Comic> comics);
 
-    void onDataNotAvailable();
-  }
+        void onDataNotAvailable();
+    }
 
-  void getCharacters(@NonNull LoadCharactersCallback callback);
-
-  void getCharacters(String term, int offset, int limit, @NonNull LoadCharactersCallback callback);
-
+    void getComics(Long characterId, LoadComicsCallback callback);
 }

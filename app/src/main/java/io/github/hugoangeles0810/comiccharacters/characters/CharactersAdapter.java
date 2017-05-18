@@ -16,7 +16,6 @@
 
 package io.github.hugoangeles0810.comiccharacters.characters;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -24,25 +23,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import io.github.hugoangeles0810.comiccharacters.R;
 import io.github.hugoangeles0810.comiccharacters.characters.domain.model.Character;
 import io.github.hugoangeles0810.comiccharacters.util.ImageLoader;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.ViewHolder> {
 
   private List<Character> mData;
-  private LayoutInflater mInflater;
   private OnItemClickListener mListener;
 
   interface OnItemClickListener {
     void onItemClick(Character character);
   }
 
-  public CharactersAdapter(@NonNull Context context) {
-    mInflater = LayoutInflater.from(context);
+  public CharactersAdapter() {
     mData = new ArrayList<>();
   }
 
@@ -51,7 +50,8 @@ public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.Vi
   }
 
   @Override public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    View itemView = mInflater.inflate(R.layout.character_item, parent, false);
+    View itemView = LayoutInflater.from(parent.getContext())
+                      .inflate(R.layout.character_item, parent, false);
     return new ViewHolder(itemView);
   }
 

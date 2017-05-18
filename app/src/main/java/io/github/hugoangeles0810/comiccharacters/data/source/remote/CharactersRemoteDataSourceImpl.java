@@ -19,9 +19,10 @@ package io.github.hugoangeles0810.comiccharacters.data.source.remote;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
+import java.util.List;
+
 import io.github.hugoangeles0810.comiccharacters.characters.domain.model.Character;
 import io.github.hugoangeles0810.comiccharacters.data.source.CharactersRemoteDataSource;
-import java.util.List;
 import retrofit.RetrofitError;
 
 public class CharactersRemoteDataSourceImpl implements CharactersRemoteDataSource {
