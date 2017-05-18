@@ -1,7 +1,7 @@
 # Comic Characters
 App para obtener información de los personajes del Mundo del Comic
 
-[![Build Status](https://travis-ci.org/hugoangeles0810/ComicCharacters.svg?branch=master)](https://travis-ci.org/hugoangeles0810/ComicCharacters)
+[![Build Status](https://travis-ci.org/hugoangeles0810/ComicCharacters.svg)](https://travis-ci.org/hugoangeles0810/ComicCharacters)
 
 Desarrollado Por
 ------------
