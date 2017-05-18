@@ -6,6 +6,8 @@
     <color name="colorPrimaryDark">#D32F2F</color>
     <color name="colorAccent">#536DFE</color>
 
+    <color name="windowBackground">#EDEDED</color>
+
     <!-- Useful colors -->
     <color name="overlay">#AA000000</color>
     <color name="white">#FEFEFE</color>

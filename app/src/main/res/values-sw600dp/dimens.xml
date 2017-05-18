@@ -16,16 +16,11 @@
   -->
 
 <resources>
-    <dimen name="base_padding">16dp</dimen>
-    <dimen name="app_bar_height">180dp</dimen>
-    <dimen name="fab_margin">16dp</dimen>
-    <dimen name="text_margin">16dp</dimen>
 
     <!-- Character Detail -->
-    <dimen name="character_detail_cover_height">200dp</dimen>
+    <dimen name="character_detail_cover_height">350dp</dimen>
 
     <!-- Comic Item -->
-    <dimen name="comic_item_height">150dp</dimen>
-    <dimen name="comic_item_width">180dp</dimen>
-
+    <dimen name="comic_item_height">210dp</dimen>
+    <dimen name="comic_item_width">240dp</dimen>
 </resources>
