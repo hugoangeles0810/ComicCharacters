@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/ComicCharacters.iml" filepath="$PROJECT_DIR$/ComicCharacters.iml" />
       <module fileurl="file://$PROJECT_DIR$/MarvelCharacters.iml" filepath="$PROJECT_DIR$/MarvelCharacters.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
